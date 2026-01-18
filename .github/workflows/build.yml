@@ -13,7 +13,23 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      
+      - name: Compile Java sources
+        run: |
+          mkdir -p Poo_Proyecto1Codigo/Poo_Proyecto1/out
+          javac -encoding UTF-8 -d Poo_Proyecto1Codigo/Poo_Proyecto1/out -sourcepath Poo_Proyecto1Codigo/Poo_Proyecto1/src $(Get-ChildItem -Path Poo_Proyecto1Codigo/Poo_Proyecto1/src -Recurse -Filter *.java | Select-Object -ExpandProperty FullName)
+        shell: pwsh
+      
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.java.binaries=Poo_Proyecto1Codigo/Poo_Proyecto1/out
