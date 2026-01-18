@@ -23,7 +23,7 @@ jobs:
       - name: Compile Java sources
         run: |
           mkdir -p Poo_Proyecto1Codigo/Poo_Proyecto1/out
-          javac -d Poo_Proyecto1Codigo/Poo_Proyecto1/out -sourcepath Poo_Proyecto1Codigo/Poo_Proyecto1/src $(Get-ChildItem -Path Poo_Proyecto1Codigo/Poo_Proyecto1/src -Recurse -Filter *.java | Select-Object -ExpandProperty FullName)
+          javac -encoding UTF-8 -d Poo_Proyecto1Codigo/Poo_Proyecto1/out -sourcepath Poo_Proyecto1Codigo/Poo_Proyecto1/src $(Get-ChildItem -Path Poo_Proyecto1Codigo/Poo_Proyecto1/src -Recurse -Filter *.java | Select-Object -ExpandProperty FullName)
         shell: pwsh
       
       - name: SonarQube Scan
